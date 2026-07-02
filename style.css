@@ -10,14 +10,14 @@
     /* Default Theme (D1) - Official Brand Theme */
     --bg-primary: #dce5e8;      /* Premium Light Powder-Blue Slate backdrop */
     --bg-secondary: #FFFFFF;
-    --bg-dark: #002837;         /* Darkest Brand Teal */
+    --bg-dark: #002837;         /* Darkest Brand Teal - used for showcase solid bg */
     --bg-dark-accent: #00364a;  
     --text-primary: #004b67;    /* Exact Brand Teal Blue */
     --text-secondary: #4d7a8d;  /* Slate Teal Muted Text */
     --text-light: #FFFFFF;
     --accent-gold: #fba900;     /* Exact Brand Mustard Gold */
     --accent-gold-hover: #ffa900;
-    --accent-gold-light: #fff9e6; /* Warm Soft Yellow Highlight Tint */
+    --accent-gold-light: #FFFFFF; /* Pure White Highlight Backdrop */
     --border-color: #e3c181;    /* Soft Warm Gold Border */
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
@@ -34,7 +34,7 @@ body[data-theme="d1"] {
     --text-light: #FFFFFF;
     --accent-gold: #fba900;
     --accent-gold-hover: #ffa900;
-    --accent-gold-light: #fff9e6;
+    --accent-gold-light: #FFFFFF;
     --border-color: #e3c181;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
@@ -111,6 +111,7 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
 }
+
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
@@ -288,6 +289,10 @@ a {
     cursor: pointer;
     flex-direction: column;
     gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
 }
 
 .menu-toggle span {
@@ -597,9 +602,45 @@ section {
 
 /* Showcase Section */
 .showcase-bg {
-    background-color: var(--bg-secondary);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-dark); /* Solid dark logo-blue #002837 */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 100px 0;
+}
+
+.showcase-bg .section-subtitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    letter-spacing: 0.22em;
+}
+
+.showcase-bg .section-title {
+    color: #FFFFFF; /* High contrast white */
+    font-size: 3.5rem; /* Larger font */
+    font-weight: 800;  /* Extra bold */
+}
+
+.showcase-bg .section-header p {
+    color: rgba(255, 255, 255, 0.9); /* High contrast off-white */
+    font-size: 1.25rem;  /* Larger paragraph font */
+    font-weight: 600;    /* Semi-bold */
+}
+
+.showcase-bg .filter-btn {
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 6px;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.showcase-bg .filter-btn:hover,
+.showcase-bg .filter-btn.active {
+    color: var(--accent-gold) !important;
+    border-color: var(--accent-gold);
 }
 
 .filter-bar {
@@ -648,16 +689,35 @@ section {
     width: 40px;
 }
 
-/* Portfolio Grid */
+/* Portfolio Grid - Horizontally Scrollable Carousel */
 .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    overflow-x: auto;
     gap: 30px;
+    padding-bottom: 25px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Custom Scrollbar for Portfolio Carousel */
+.portfolio-grid::-webkit-scrollbar {
+    height: 6px;
+}
+.portfolio-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+.portfolio-grid::-webkit-scrollbar-thumb {
+    background: var(--text-primary);
+    border-radius: 10px;
 }
 
 /* Symmetrical Portrait Cards (Default Layout) */
 .portfolio-item {
-    grid-column: span 2; /* Symmetrical 3 columns per row */
+    flex: 0 0 calc(33.333% - 20px); /* 3 cards visible on desktop */
+    min-width: 300px;
+    scroll-snap-align: start;
     position: relative;
     overflow: hidden;
     aspect-ratio: 0.85; /* Elegant portrait frames */
@@ -808,7 +868,7 @@ body[data-theme="d1"] .portfolio-loc {
 .lightbox-content {
     max-width: 1200px;
     margin: 80px auto;
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     border-radius: 2px;
@@ -827,7 +887,7 @@ body[data-theme="d1"] .portfolio-loc {
     position: absolute;
     top: 25px;
     right: 25px;
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     border: none;
     width: 50px;
     height: 50px;
@@ -1148,11 +1208,8 @@ textarea.form-input {
     .story-img-sub {
         display: none; /* simplifies layout on mobile */
     }
-    .portfolio-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    .portfolio-item, .portfolio-item:nth-child(3n+1), .portfolio-item:nth-child(3n+2) {
-        grid-column: span 2;
+    .portfolio-item {
+        flex: 0 0 calc(50% - 15px); /* 2 cards visible on tablet */
     }
     .services-grid {
         grid-template-columns: 1fr;
@@ -1238,11 +1295,10 @@ textarea.form-input {
         font-size: 2.2rem;
     }
     .portfolio-grid {
-        grid-template-columns: 1fr;
         gap: 20px;
     }
     .portfolio-item, .portfolio-item:nth-child(3n+1), .portfolio-item:nth-child(3n+2) {
-        grid-column: span 1;
+        flex: 0 0 calc(100% - 30px); /* 1 card visible on mobile */
         aspect-ratio: 4/3;
     }
     .footer-top {

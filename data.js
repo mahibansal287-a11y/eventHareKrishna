@@ -86,6 +86,54 @@ const DEFAULT_EVENTS = [
             "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=1200",
             "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=1200"
         ]
+    },
+    {
+        id: "evt-6",
+        title: "Apex Annual Awards Gala",
+        category: "Corporate Events",
+        description: "An elegant corporate awards night featuring custom glass trophies, LED backdrop animations, corporate branding banners, and red carpet step-and-repeat layouts.",
+        date: "2026-03-05",
+        location: "The Leela, Mumbai",
+        images: [
+            "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200"
+        ]
+    },
+    {
+        id: "evt-7",
+        title: "Symphony Gold Wedding Stage",
+        category: "Weddings & Socials",
+        description: "A gorgeous, gold-themed floral stage with custom seating, glass chandeliers, hanging wisterias, and warm spotlights.",
+        date: "2026-04-15",
+        location: "ITC Maurya, New Delhi",
+        images: [
+            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=1200"
+        ]
+    },
+    {
+        id: "evt-8",
+        title: "Apex Acrylic 3D LED Signage",
+        category: "Branding & LED Signage",
+        description: "High-end corporate storefront LED signs, custom 3D acrylic lettering with edge-lit lighting, and vinyl graphic glass wraps.",
+        date: "2026-02-28",
+        location: "Cyber City, Gurugram",
+        images: [
+            "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=1200"
+        ]
+    },
+    {
+        id: "evt-9",
+        title: "International Steel Expo Pavillion",
+        category: "Exhibitions & Fabrications",
+        description: "A colossal industrial exhibition pavilion with integrated mezzanine lounges, dynamic LED video pillars, and custom showcases.",
+        date: "2026-05-10",
+        location: "BIEC, Bengaluru",
+        images: [
+            "https://images.unsplash.com/photo-1565034946487-077786996e27?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=1200"
+        ]
     }
 ];
 
@@ -94,6 +142,18 @@ function initDatabase() {
     if (!localStorage.getItem("eternal_events")) {
         localStorage.setItem("eternal_events", JSON.stringify(DEFAULT_EVENTS));
         localStorage.setItem("hk_creations_db_seeded", "true");
+    } else {
+        try {
+            const events = JSON.parse(localStorage.getItem("eternal_events"));
+            if (events && events.length < DEFAULT_EVENTS.length) {
+                const existingIds = events.map(e => e.id);
+                const eventsToAdd = DEFAULT_EVENTS.filter(e => !existingIds.includes(e.id));
+                events.push(...eventsToAdd);
+                localStorage.setItem("eternal_events", JSON.stringify(events));
+            }
+        } catch (e) {
+            console.error("Migration error: ", e);
+        }
     }
     if (!localStorage.getItem("eternal_categories")) {
         localStorage.setItem("eternal_categories", JSON.stringify(DEFAULT_CATEGORIES));

@@ -6,8 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelector(".nav-links");
     if (menuToggle && navLinks) {
         menuToggle.addEventListener("click", () => {
-            menuToggle.classList.toggle("active");
+            const isActive = menuToggle.classList.toggle("active");
             navLinks.classList.toggle("active");
+            menuToggle.setAttribute("aria-expanded", isActive ? "true" : "false");
         });
         
         // Close menu when a link is clicked
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
             link.addEventListener("click", () => {
                 menuToggle.classList.remove("active");
                 navLinks.classList.remove("active");
+                menuToggle.setAttribute("aria-expanded", "false");
             });
         });
     }
@@ -188,12 +190,25 @@ document.addEventListener("DOMContentLoaded", () => {
             // Assign some index-based variations for staggered reveal
             item.style.transitionDelay = `${(idx % 3) * 0.15}s`;
 
-            const primaryImg = evt.images && evt.images.length > 0 
-                ? evt.images[0] 
-                : "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200";
+            const imagesList = evt.images && evt.images.length > 0 
+                ? evt.images 
+                : ["https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200"];
 
             item.innerHTML = `
-                <img src="${primaryImg}" alt="${evt.title}" class="portfolio-img" loading="lazy">
+                <div class="portfolio-slides-wrapper" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 65px); overflow: hidden; border-radius: 2px 2px 0 0;">
+                    ${imagesList.map((imgUrl, i) => `
+                        <img src="${imgUrl}" alt="${evt.title}" class="portfolio-img ${i === 0 ? 'active' : ''}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: ${i === 0 ? 1 : 0}; transition: opacity 0.8s ease-in-out;" loading="lazy">
+                    `).join('')}
+                    
+                    <!-- Manual Slide Dots -->
+                    ${imagesList.length > 1 ? `
+                    <div class="card-slide-dots" style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; background: rgba(0, 0, 0, 0.4); padding: 4px 8px; border-radius: 10px;">
+                        ${imagesList.map((_, i) => `
+                            <span class="card-dot ${i === 0 ? 'active' : ''}" data-index="${i}" style="width: 6px; height: 6px; border-radius: 50%; background: ${i === 0 ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)'}; cursor: pointer; transition: background 0.3s ease;"></span>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+                </div>
                 <div class="portfolio-overlay">
                     <span class="portfolio-cat">${evt.category}</span>
                     <h3 class="portfolio-title">${evt.title}</h3>
@@ -204,6 +219,38 @@ document.addEventListener("DOMContentLoaded", () => {
             // Click listener for details modal
             item.addEventListener("click", () => openLightbox(evt.id));
 
+            // Attach click listeners to manual slide dots
+            if (imagesList.length > 1) {
+                const dots = item.querySelectorAll(".card-dot");
+                dots.forEach(dot => {
+                    dot.addEventListener("click", (e) => {
+                        e.stopPropagation(); // Prevent opening lightbox
+                        const targetIdx = parseInt(dot.getAttribute("data-index"));
+                        const slides = item.querySelectorAll(".portfolio-img");
+                        
+                        slides.forEach((slide, sIdx) => {
+                            if (sIdx === targetIdx) {
+                                slide.classList.add("active");
+                                slide.style.opacity = 1;
+                            } else {
+                                slide.classList.remove("active");
+                                slide.style.opacity = 0;
+                            }
+                        });
+                        
+                        dots.forEach((d, dIdx) => {
+                            if (dIdx === targetIdx) {
+                                d.classList.add("active");
+                                d.style.background = "#FFFFFF";
+                            } else {
+                                d.classList.remove("active");
+                                d.style.background = "rgba(255, 255, 255, 0.5)";
+                            }
+                        });
+                    });
+                });
+            }
+
             portfolioGrid.appendChild(item);
 
             // Re-observe newly created elements for reveal animation
@@ -211,6 +258,88 @@ document.addEventListener("DOMContentLoaded", () => {
                 revealObserver.observe(item);
             }, 50);
         });
+
+        // Start automatic card slideshow cycling
+        if (filteredEvents.length > 0) {
+            clearInterval(window.cardSlideshowInterval);
+            window.cardSlideshowInterval = setInterval(() => {
+                const items = document.querySelectorAll(".portfolio-item");
+                items.forEach(item => {
+                    const slides = item.querySelectorAll(".portfolio-img");
+                    if (slides.length <= 1) return;
+                    
+                    let activeIndex = -1;
+                    slides.forEach((slide, idx) => {
+                        if (slide.classList.contains("active")) {
+                            activeIndex = idx;
+                        }
+                    });
+                    
+                    if (activeIndex !== -1) {
+                        slides[activeIndex].classList.remove("active");
+                        slides[activeIndex].style.opacity = 0;
+                        
+                        const nextIndex = (activeIndex + 1) % slides.length;
+                        slides[nextIndex].classList.add("active");
+                        slides[nextIndex].style.opacity = 1;
+                        
+                        // Sync dots
+                        const dots = item.querySelectorAll(".card-dot");
+                        dots.forEach((d, dIdx) => {
+                            if (dIdx === nextIndex) {
+                                d.classList.add("active");
+                                d.style.background = "#FFFFFF";
+                            } else {
+                                d.classList.remove("active");
+                                d.style.background = "rgba(255, 255, 255, 0.5)";
+                            }
+                        });
+                    }
+                });
+            }, 3500);
+        }
+
+        // Start horizontal auto scroll for the portfolio grid
+        if (filteredEvents.length > 3) {
+            clearInterval(window.portfolioAutoScrollInterval);
+            window.portfolioAutoScrollInterval = setInterval(() => {
+                const maxScrollLeft = portfolioGrid.scrollWidth - portfolioGrid.clientWidth;
+                if (portfolioGrid.scrollLeft >= maxScrollLeft - 10) {
+                    // Loop back to start smoothly
+                    portfolioGrid.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    // Scroll by one card width (card width + gap)
+                    const firstCard = portfolioGrid.querySelector(".portfolio-item");
+                    if (firstCard) {
+                        const cardWidth = firstCard.offsetWidth + 30; // Card width + 30px gap
+                        portfolioGrid.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                    }
+                }
+            }, 4500); // Auto-scroll every 4.5 seconds
+
+            // Pause auto-scroll when user hovers or interacts with the grid
+            const pauseAutoScroll = () => clearInterval(window.portfolioAutoScrollInterval);
+            const resumeAutoScroll = () => {
+                clearInterval(window.portfolioAutoScrollInterval);
+                window.portfolioAutoScrollInterval = setInterval(() => {
+                    const maxScrollLeft = portfolioGrid.scrollWidth - portfolioGrid.clientWidth;
+                    if (portfolioGrid.scrollLeft >= maxScrollLeft - 10) {
+                        portfolioGrid.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        const firstCard = portfolioGrid.querySelector(".portfolio-item");
+                        if (firstCard) {
+                            const cardWidth = firstCard.offsetWidth + 30;
+                            portfolioGrid.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                        }
+                    }
+                }, 4500);
+            };
+
+            portfolioGrid.addEventListener("mouseenter", pauseAutoScroll);
+            portfolioGrid.addEventListener("mouseleave", resumeAutoScroll);
+            portfolioGrid.addEventListener("touchstart", pauseAutoScroll, { passive: true });
+            portfolioGrid.addEventListener("touchend", resumeAutoScroll, { passive: true });
+        }
     }
 
     // 5. Lightbox Modal Functionality
