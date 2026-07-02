@@ -232,21 +232,25 @@ a {
 
 .navbar.scrolled {
     padding: 15px 50px;
-    background: rgba(250, 249, 246, 0.85);
+    background: rgba(244, 248, 250, 0.95);
     backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-color);
 }
 
 .nav-logo {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    letter-spacing: 0.15em;
-    color: var(--text-primary);
-    text-transform: uppercase;
+    display: block;
 }
 
-.navbar.scrolled .nav-logo {
-    color: var(--text-primary);
+/* Nav Logo SVG Dynamic Fill Controller */
+.nav-logo svg path[fill="var(--text-primary)"],
+.nav-logo svg text[fill="var(--text-primary)"] {
+    fill: #FFFFFF; /* High-contrast white when overlaying dark hero banner */
+    transition: fill var(--transition-medium);
+}
+
+.navbar.scrolled .nav-logo svg path[fill="var(--text-primary)"],
+.navbar.scrolled .nav-logo svg text[fill="var(--text-primary)"] {
+    fill: var(--text-primary); /* Returns to brand teal/burgundy when scrolled */
 }
 
 .nav-links {
@@ -259,10 +263,15 @@ a {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    font-weight: 400;
-    color: var(--text-primary);
+    font-weight: 500;
+    color: #FFFFFF; /* High-contrast white by default on dark hero background */
     position: relative;
     padding: 5px 0;
+    transition: color var(--transition-medium);
+}
+
+.navbar.scrolled .nav-links a {
+    color: var(--text-primary); /* Standard dark text when nav is scrolled */
 }
 
 .nav-links a::after {
@@ -277,7 +286,7 @@ a {
 }
 
 .nav-links a:hover {
-    color: var(--accent-gold);
+    color: var(--accent-gold) !important;
 }
 
 .nav-links a:hover::after {
@@ -352,6 +361,8 @@ a {
     letter-spacing: 0.3em;
     margin-bottom: 20px;
     color: var(--accent-gold);
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
@@ -362,6 +373,8 @@ a {
     font-weight: 300;
     margin-bottom: 30px;
     line-height: 1.15;
+    color: #FFFFFF; /* High-contrast pure white */
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
     opacity: 0;
     transform: translateY(30px);
     animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
@@ -378,6 +391,20 @@ a {
     animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
 }
 
+.hero-cta .btn-luxury:first-child {
+    background-color: var(--accent-gold);
+    color: #0A2E38 !important; /* Deep Navy brand teal color for readable text */
+    font-weight: 600;
+    border-color: var(--accent-gold);
+    box-shadow: 0 4px 15px rgba(235, 161, 21, 0.3);
+}
+
+.hero-cta .btn-luxury:first-child:hover {
+    background-color: transparent;
+    color: #FFFFFF !important;
+    box-shadow: none;
+}
+
 .btn-luxury {
     display: inline-block;
     padding: 15px 35px;
@@ -391,6 +418,7 @@ a {
     overflow: hidden;
     background: transparent;
     cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .btn-luxury::before {

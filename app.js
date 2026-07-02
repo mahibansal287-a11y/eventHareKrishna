@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         slidesList.forEach((slideUrl, i) => {
             const slide = document.createElement("div");
             slide.className = `hero-slide ${i === 0 ? 'active' : ''}`;
-            slide.style.backgroundImage = `linear-gradient(to bottom, rgba(17,17,17,0.45), rgba(17,17,17,0.75)), url('${slideUrl}')`;
+            slide.style.backgroundImage = `linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.8)), url('${slideUrl}')`;
             heroSlider.appendChild(slide);
         });
     }
