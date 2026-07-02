@@ -293,9 +293,13 @@ a {
 .menu-toggle span {
     display: block;
     width: 25px;
-    height: 1px;
-    background: var(--text-primary);
+    height: 1.5px;
+    background: #FFFFFF; /* High-contrast white by default on dark hero slider */
     transition: var(--transition-fast);
+}
+
+.navbar.scrolled .menu-toggle span {
+    background: var(--text-primary); /* Switch to brand teal blue when scrolled */
 }
 
 /* Hero Section */
@@ -535,59 +539,6 @@ section {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* About Us Section Dark Breakout (Default Theme) */
-body[data-theme="d1"] #about {
-    background-color: #002837;
-    color: #FFFFFF;
-}
-
-body[data-theme="d1"] #about h2 {
-    color: #FFFFFF;
-}
-
-body[data-theme="d1"] #about blockquote {
-    color: #FFFFFF;
-    border-left-color: var(--accent-gold);
-}
-
-body[data-theme="d1"] #about p {
-    color: #a3c4d3;
-}
-
-body[data-theme="d1"] #about .btn-luxury {
-    color: #FFFFFF;
-    border-color: #FFFFFF;
-}
-
-/* Services Section Dark Breakout (Default Theme) */
-body[data-theme="d1"] #services {
-    background-color: #002837;
-    color: #FFFFFF;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-}
-
-body[data-theme="d1"] #services .section-title {
-    color: #FFFFFF;
-}
-
-body[data-theme="d1"] #services .section-header p {
-    color: #a3c4d3;
-}
-
-body[data-theme="d1"] #services .service-card {
-    background-color: #00364a;
-    border-color: rgba(251, 169, 0, 0.25);
-}
-
-body[data-theme="d1"] #services .service-card p {
-    color: #a3c4d3;
-}
-
-body[data-theme="d1"] #services .service-title {
-    color: #FFFFFF;
 }
 
 /* Brand Story Section */
@@ -1222,14 +1173,64 @@ textarea.form-input {
 
 @media (max-width: 768px) {
     .navbar {
-        padding: 20px 30px;
+        padding: 15px 25px;
     }
+    
     .nav-links {
-        display: none; /* In a real app we'd trigger side menu, keeping it simple or toggled */
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-color);
+        padding: 30px 0;
+        gap: 25px;
+        align-items: center;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        z-index: 999;
     }
+
+    .nav-links.active {
+        display: flex;
+        animation: navSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes navSlideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .nav-links a {
+        font-size: 0.95rem;
+        color: var(--text-primary) !important;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+    }
+
     .menu-toggle {
         display: flex;
+        z-index: 1001;
     }
+
+    /* Hamburger Lines Active Transitions */
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
     .hero-title {
         font-size: 2.8rem;
     }
