@@ -624,85 +624,94 @@ section {
     gap: 30px;
 }
 
-/* Custom Masonry-like span sizes */
+/* Symmetrical Portrait Cards (Default Layout) */
 .portfolio-item {
-    grid-column: span 3;
+    grid-column: span 2; /* Symmetrical 3 columns per row */
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4/3;
-    border-radius: 2px;
+    aspect-ratio: 0.85; /* Elegant portrait frames */
+    border-radius: 4px;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    background: var(--bg-secondary);
+    border: 5px double var(--border-color);
+    padding: 12px;
+    transition: transform var(--transition-medium), border-color var(--transition-medium), box-shadow var(--transition-medium);
 }
 
-.portfolio-item:nth-child(3n+1) {
-    grid-column: span 4;
-}
-.portfolio-item:nth-child(3n+2) {
-    grid-column: span 2;
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-gold);
 }
 
 .portfolio-img {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 65px); /* Space for bottom metadata strip */
     object-fit: cover;
     transition: transform 1.2s var(--transition-slow);
 }
 
+.portfolio-item:hover .portfolio-img {
+    transform: scale(1.04);
+}
+
+/* Static bottom strip - always readable */
 .portfolio-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(17,17,17,0.95) 0%, rgba(17,17,17,0.4) 60%, rgba(17,17,17,0.1) 100%);
-    opacity: 0;
+    height: 65px;
+    width: calc(100% - 24px);
+    left: 12px;
+    bottom: 12px;
+    background: var(--bg-secondary);
+    opacity: 1; /* Always visible */
+    padding: 8px 10px;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 40px;
-    transition: opacity 0.5s var(--transition-medium);
-    z-index: 2;
+    justify-content: center;
+    top: auto;
+    border-top: 1px solid var(--border-color);
+    transition: background-color var(--transition-fast);
 }
 
-.portfolio-item:hover .portfolio-img {
-    transform: scale(1.08);
+/* D1 (Peacock Teal / Navy) Highlights to make text highly visible */
+body[data-theme="d1"] .portfolio-overlay {
+    background: #E8F2F5; /* Highlighted light ice-blue/teal tint container */
+    border-top: 1px solid #D1DFE3;
 }
 
-.portfolio-item:hover .portfolio-overlay {
-    opacity: 1;
+body[data-theme="d1"] .portfolio-title {
+    color: #0A2E38 !important; /* Bold Navy Blue / Peacock Teal */
+    font-weight: 700;
 }
 
-.portfolio-cat {
-    color: var(--accent-gold);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 8px;
-    transform: translateY(15px);
-    transition: transform 0.6s var(--transition-slow) 0.05s;
+body[data-theme="d1"] .portfolio-loc {
+    color: #527A84 !important; /* Slate Teal info text */
 }
 
+/* Default portfolio text styles */
 .portfolio-title {
-    color: var(--text-light);
-    font-size: 1.8rem;
-    margin-bottom: 12px;
-    transform: translateY(15px);
-    transition: transform 0.6s var(--transition-slow) 0.1s;
+    color: var(--text-primary);
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--transition-fast);
 }
 
 .portfolio-loc {
-    color: rgba(250, 249, 246, 0.6);
-    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
     letter-spacing: 0.05em;
-    transform: translateY(15px);
-    transition: transform 0.6s var(--transition-slow) 0.15s;
 }
 
-.portfolio-item:hover .portfolio-cat,
-.portfolio-item:hover .portfolio-title,
-.portfolio-item:hover .portfolio-loc {
-    transform: translateY(0);
+.portfolio-cat {
+    display: none; /* Keep layout clean and symmetrical */
 }
 
 /* Services Capabilities */
@@ -1309,52 +1318,25 @@ body[data-theme="d3"] .story-img-sub {
 
 body[data-theme="d3"] .service-card {
     border: 2px double var(--border-color);
-    background: #FFFCF9;
+    background: var(--bg-secondary);
 }
 
 body[data-theme="d3"] .portfolio-item {
-    grid-column: span 2 !important;
     border: 5px double var(--border-color);
-    background: #FFFFFF;
-    padding: 12px;
-    aspect-ratio: 0.85;
-}
-
-body[data-theme="d3"] .portfolio-img {
-    height: calc(100% - 60px);
+    background: var(--bg-secondary);
 }
 
 body[data-theme="d3"] .portfolio-overlay {
-    position: absolute;
-    height: 60px;
-    width: calc(100% - 24px);
-    left: 12px;
-    bottom: 12px;
-    background: #FFFFFF;
-    opacity: 1;
-    padding: 8px 0;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    top: auto;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
 }
 
 body[data-theme="d3"] .portfolio-title {
     color: var(--text-primary) !important;
-    font-size: 1.1rem;
-    margin-bottom: 2px;
 }
 
 body[data-theme="d3"] .portfolio-loc {
     color: var(--accent-gold) !important;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-body[data-theme="d3"] .portfolio-cat {
-    display: none;
 }
 
 /* --- Theme D3 About Us Premium Layout Enhancements --- */
