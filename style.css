@@ -63,15 +63,15 @@ body[data-theme="d3"] {
     --bg-secondary: #FFFFFF;
     --bg-dark: #4A121A;         /* Deep Crimson Burgundy */
     --bg-dark-accent: #611D25;  /* Rich Plum Accent */
-    --text-primary: #330F13;    /* Deep Wine Charcoal */
-    --text-secondary: #70575B;  /* Muted Burgundy Grey */
+    --text-primary: #4A121A;    /* Deep Royal Burgundy Font Color */
+    --text-secondary: #7D4C54;  /* Muted Rose Burgundy Font Color */
     --text-light: #FCF9F6;
     --accent-gold: #C09E5A;     /* Warm Lustrous Gold */
     --accent-gold-hover: #D4AF37;
     --accent-gold-light: #F7F1E6;
     --border-color: #EADCD1;
-    --font-serif: 'Playfair Display', serif;
-    --font-sans: 'Montserrat', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif; /* Exquisite elegant serif font */
+    --font-sans: 'Inter', sans-serif;
 }
 
 /* Theme D4 - Modern Minimalist Dark (Obsidian & Blush) */
@@ -1382,6 +1382,8 @@ body[data-theme="d3"] .story-text blockquote {
     font-size: 2.2rem;
     color: var(--text-primary);
     position: relative;
+    font-style: italic;
+    font-weight: 300;
 }
 
 body[data-theme="d3"] .story-text blockquote::before,
