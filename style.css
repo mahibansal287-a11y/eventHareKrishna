@@ -7,35 +7,35 @@
     --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     
-    /* Default Theme (D1) */
-    --bg-primary: #FAF9F6;      /* Warm Alabaster Ivory */
+    /* Default Theme (D1) - Official Brand Theme */
+    --bg-primary: #F4F8FA;      /* Ice Teal Tint */
     --bg-secondary: #FFFFFF;
-    --bg-dark: #111111;
-    --bg-dark-accent: #1C1A17;  /* Soft Rich Charcoal */
-    --text-primary: #1C1A17;
-    --text-secondary: #65605C;
-    --text-light: #FAF9F6;
-    --accent-gold: #C5A880;     /* Muted Champagne Gold */
-    --accent-gold-hover: #D4AF37; /* Vibrant Gold */
-    --accent-gold-light: #F6F2EC;
-    --border-color: #E6E1DA;
+    --bg-dark: #0A2E38;         /* Deep Peacock Teal */
+    --bg-dark-accent: #0D3A47;  
+    --text-primary: #0A2E38;    /* Deep Peacock Teal Text */
+    --text-secondary: #527A84;  /* Muted Slate Teal Text */
+    --text-light: #F4F8FA;
+    --accent-gold: #EBA115;     /* Official Mustard Gold */
+    --accent-gold-hover: #F5B01A;
+    --accent-gold-light: #E8F2F5;
+    --border-color: #D1DFE3;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
 
-/* Theme D1 - Classic Champagne & Ivory (Original Luxury) */
+/* Theme D1 - Official Peacock Teal & Gold (Primary Brand Design) */
 body[data-theme="d1"] {
-    --bg-primary: #FAF9F6;
+    --bg-primary: #F4F8FA;
     --bg-secondary: #FFFFFF;
-    --bg-dark: #111111;
-    --bg-dark-accent: #1C1A17;
-    --text-primary: #1C1A17;
-    --text-secondary: #65605C;
-    --text-light: #FAF9F6;
-    --accent-gold: #C5A880;
-    --accent-gold-hover: #D4AF37;
-    --accent-gold-light: #F6F2EC;
-    --border-color: #E6E1DA;
+    --bg-dark: #0A2E38;
+    --bg-dark-accent: #0D3A47;
+    --text-primary: #0A2E38;
+    --text-secondary: #527A84;
+    --text-light: #F4F8FA;
+    --accent-gold: #EBA115;
+    --accent-gold-hover: #F5B01A;
+    --accent-gold-light: #E8F2F5;
+    --border-color: #D1DFE3;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
@@ -1229,7 +1229,7 @@ textarea.form-input {
     box-shadow: 0 0 8px rgba(0,0,0,0.15);
 }
 
-.theme-btn-d1 { background: #C5A880; color: #FAF9F6; }
+.theme-btn-d1 { background: #0A2E38; color: #F4F8FA; }
 .theme-btn-d2 { background: #0F4C81; color: #F4F6F9; }
 .theme-btn-d3 { background: #58111A; color: #FAF9F6; }
 .theme-btn-d4 { background: #0F0E0E; color: #E8C5C8; border: 1px solid #2D2B2B; }
