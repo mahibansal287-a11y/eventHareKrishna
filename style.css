@@ -57,19 +57,19 @@ body[data-theme="d2"] {
     --font-sans: 'Inter', sans-serif;
 }
 
-/* Theme D3 - Royal Velvet Burgundy & Gold */
+/* Theme D3 - Royal Velvet Burgundy & Gold (Immersive Dark Burgundy Mode) */
 body[data-theme="d3"] {
-    --bg-primary: #FCF9F6;      /* Pearl Rose / Silk Cream */
-    --bg-secondary: #FFFFFF;
-    --bg-dark: #4A121A;         /* Deep Crimson Burgundy */
-    --bg-dark-accent: #611D25;  /* Rich Plum Accent */
-    --text-primary: #4A121A;    /* Deep Royal Burgundy Font Color */
-    --text-secondary: #7D4C54;  /* Muted Rose Burgundy Font Color */
+    --bg-primary: #380C12;      /* Deep Midnight Burgundy */
+    --bg-secondary: #4A121A;    /* Rich Crimson Burgundy */
+    --bg-dark: #25060A;         /* Darkest Obsidian Burgundy */
+    --bg-dark-accent: #2F0A0E;  
+    --text-primary: #FCF9F6;    /* Pearl Silk Cream (High contrast) */
+    --text-secondary: #D0B6B9;  /* Muted Rose Pearl Cream */
     --text-light: #FCF9F6;
-    --accent-gold: #C09E5A;     /* Warm Lustrous Gold */
-    --accent-gold-hover: #D4AF37;
-    --accent-gold-light: #F7F1E6;
-    --border-color: #EADCD1;
+    --accent-gold: #D2B06C;     /* Bright Warm Gold */
+    --accent-gold-hover: #E3C588;
+    --accent-gold-light: #4F161E; /* Rich Burgundy Gold Tint */
+    --border-color: #5D1A23;    /* Crimson Border */
     --font-serif: 'Cormorant Garamond', serif; /* Exquisite elegant serif font */
     --font-sans: 'Inter', sans-serif;
 }
@@ -1478,9 +1478,7 @@ body[data-theme="d3"] .story-img-right {
     right: 40px;
     top: 40px;
 }
-
-
-
-
-
-
+body[data-theme="d3"] .navbar.scrolled {
+    background: rgba(37, 6, 10, 0.95);
+    border-bottom: 1px solid var(--border-color);
+}
