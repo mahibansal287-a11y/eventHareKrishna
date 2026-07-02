@@ -9,6 +9,58 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
 
+    // Hero Slideshow Controller
+    const slides = document.querySelectorAll(".hero-slide");
+    let currentSlideIndex = 0;
+    if (slides.length > 0) {
+        setInterval(() => {
+            slides[currentSlideIndex].classList.remove("active");
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            slides[currentSlideIndex].classList.add("active");
+        }, 5000);
+    }
+
+    // Milestones Count-Up Animation
+    const milestonesSection = document.getElementById("milestones");
+    const milestoneNumbers = document.querySelectorAll("#milestones span[style*='font-size: 3.5rem']");
+    let milestonesAnimated = false;
+
+    function animateCountUp(el, targetValue) {
+        let start = 0;
+        const duration = 1500; // ms
+        const stepTime = Math.abs(Math.floor(duration / targetValue));
+        const originalSymbol = el.innerText.includes("+") ? "+" : el.innerText.includes("%") ? "%" : "";
+        
+        const timer = setInterval(() => {
+            start += Math.ceil(targetValue / 50); // count up in steps
+            if (start >= targetValue) {
+                start = targetValue;
+                clearInterval(timer);
+            }
+            el.innerText = start + originalSymbol;
+        }, 30);
+    }
+
+    const milestonesObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !milestonesAnimated) {
+                milestonesAnimated = true;
+                milestoneNumbers.forEach(numSpan => {
+                    const cleanText = numSpan.innerText.replace("+", "").replace("%", "");
+                    const val = parseInt(cleanText);
+                    if (!isNaN(val)) {
+                        animateCountUp(numSpan, val);
+                    }
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.25 });
+
+    if (milestonesSection) {
+        milestonesObserver.observe(milestonesSection);
+    }
+
     // 2. Navbar Scroll Effect
     const navbar = document.querySelector(".navbar");
     window.addEventListener("scroll", () => {
@@ -134,6 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Elements within Lightbox
         const imageContainer = lightbox.querySelector(".lightbox-images");
         const detailsContainer = lightbox.querySelector(".lightbox-details");
+        const thumbsStrip = lightbox.querySelector("#lightbox-thumbs-strip");
 
         // Render Images
         imageContainer.innerHTML = "";
@@ -147,6 +200,21 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         } else {
             imageContainer.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-light);font-style:italic;">No images available</div>`;
+        }
+
+        // Render Thumbnails
+        if (thumbsStrip) {
+            thumbsStrip.innerHTML = "";
+            if (lightboxImagesList.length > 0) {
+                lightboxImagesList.forEach((imgUrl, i) => {
+                    const thumb = document.createElement("img");
+                    thumb.src = imgUrl;
+                    thumb.className = `lightbox-thumb-item ${i === 0 ? 'active' : ''}`;
+                    thumb.alt = "Thumbnail";
+                    thumb.addEventListener("click", () => showImage(i));
+                    thumbsStrip.appendChild(thumb);
+                });
+            }
         }
 
         // Setup Arrow controls if more than 1 image
@@ -207,9 +275,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showImage(index) {
         const images = document.querySelectorAll(".lightbox-img-item");
+        const thumbs = document.querySelectorAll(".lightbox-thumb-item");
         if (images.length === 0) return;
         
         images.forEach(img => img.classList.remove("active"));
+        thumbs.forEach(t => t.classList.remove("active"));
         
         // Handle wrapping indexes
         if (index >= images.length) currentImgIndex = 0;
@@ -217,6 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
         else currentImgIndex = index;
 
         images[currentImgIndex].classList.add("active");
+        if (thumbs[currentImgIndex]) {
+            thumbs[currentImgIndex].classList.add("active");
+            thumbs[currentImgIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
     }
 
     if (prevBtn) {

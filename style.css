@@ -312,18 +312,31 @@ a {
     overflow: hidden;
 }
 
-.hero-bg {
+.hero-slider {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to bottom, rgba(17,17,17,0.4), rgba(17,17,17,0.7)), url('images/hero_wedding.jpg');
+    z-index: 1;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
-    z-index: 1;
-    transform: scale(1.05);
-    transition: transform 1.5s var(--transition-slow);
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 1.5s ease-in-out, transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .hero-content {
@@ -794,8 +807,37 @@ section {
 /* Lightbox Slider */
 .lightbox-images {
     position: relative;
-    height: 600px;
+    height: 480px;
     background: var(--bg-dark);
+}
+
+.lightbox-thumbs {
+    height: 120px;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 30px;
+    overflow-x: auto;
+}
+
+.lightbox-thumb-item {
+    width: 80px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 2px;
+    cursor: pointer;
+    opacity: 0.5;
+    border: 2px solid transparent;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.lightbox-thumb-item:hover,
+.lightbox-thumb-item.active {
+    opacity: 1;
+    border-color: var(--accent-gold);
 }
 
 .lightbox-img-item {

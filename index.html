@@ -36,7 +36,11 @@
 
     <!-- Hero Section -->
     <header class="hero">
-        <div class="hero-bg"></div>
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background-image: linear-gradient(to bottom, rgba(17,17,17,0.45), rgba(17,17,17,0.75)), url('images/hero_wedding.jpg');"></div>
+            <div class="hero-slide" style="background-image: linear-gradient(to bottom, rgba(17,17,17,0.45), rgba(17,17,17,0.75)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200');"></div>
+            <div class="hero-slide" style="background-image: linear-gradient(to bottom, rgba(17,17,17,0.45), rgba(17,17,17,0.75)), url('https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=1200');"></div>
+        </div>
         <div class="hero-content">
             <span class="hero-subtitle">13+ Years of Flawless Execution</span>
             <h1 class="hero-title">Creating <span>Experiences</span>.<br>Building <span>Brands</span>.</h1>
@@ -341,14 +345,20 @@
     <div id="lightbox" class="lightbox">
         <button class="lightbox-close"><i class="fa-solid fa-xmark"></i></button>
         <div class="lightbox-content">
-            <!-- Left Side: Custom Slide Images -->
-            <div class="lightbox-images">
-                <!-- Loaded dynamically -->
-            </div>
-            <!-- Arrow Controls -->
-            <div class="lightbox-arrows">
-                <button class="arrow-btn" id="prev-img"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="arrow-btn" id="next-img"><i class="fa-solid fa-chevron-right"></i></button>
+            <!-- Left Side: Interactive Gallery Column -->
+            <div class="lightbox-gallery-col" style="position: relative; display: flex; flex-direction: column;">
+                <div class="lightbox-images">
+                    <!-- Loaded dynamically -->
+                </div>
+                <!-- Arrow Controls -->
+                <div class="lightbox-arrows">
+                    <button class="arrow-btn" id="prev-img"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="arrow-btn" id="next-img"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <!-- Thumbnails strip -->
+                <div class="lightbox-thumbs" id="lightbox-thumbs-strip">
+                    <!-- Loaded dynamically -->
+                </div>
             </div>
             <!-- Right Side: Details and Inquire -->
             <div class="lightbox-details">

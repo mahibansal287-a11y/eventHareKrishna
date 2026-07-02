@@ -17,7 +17,9 @@ const DEFAULT_EVENTS = [
         location: "Grand Hyatt, Mumbai",
         images: [
             "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200",
-            "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1200"
         ]
     },
     {
@@ -29,7 +31,9 @@ const DEFAULT_EVENTS = [
         location: "Taj Palace, New Delhi",
         images: [
             "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200",
-            "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=1200"
         ]
     },
     {
@@ -40,7 +44,9 @@ const DEFAULT_EVENTS = [
         date: "2025-10-22",
         location: "DLF CyberCity, Gurugram",
         images: [
-            "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&q=80&w=1200"
         ]
     },
     {
@@ -51,7 +57,9 @@ const DEFAULT_EVENTS = [
         date: "2026-02-18",
         location: "Pragati Maidan, New Delhi",
         images: [
-            "https://images.unsplash.com/photo-1565034946487-077786996e27?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1565034946487-077786996e27?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&q=80&w=1200"
         ]
     },
     {
@@ -62,17 +70,23 @@ const DEFAULT_EVENTS = [
         date: "2026-01-10",
         location: "Umaid Bhawan, Jodhpur",
         images: [
-            "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=1200"
         ]
     }
 ];
 
 // Initialize Storage
 function initDatabase() {
-    // If it's the old eternal_events database, reset it to match Hare Krishna Creations
-    if (localStorage.getItem("eternal_events") && !localStorage.getItem("hk_creations_db_seeded")) {
-        localStorage.removeItem("eternal_events");
-        localStorage.removeItem("eternal_categories");
+    // If it's the old eternal_events database or older schema, reset it to load all new images
+    if (localStorage.getItem("eternal_events")) {
+        const events = JSON.parse(localStorage.getItem("eternal_events"));
+        // Reset if we don't have multiple images loaded in corporate events
+        if (events.length > 0 && (!events[0].images || events[0].images.length < 3)) {
+            localStorage.removeItem("eternal_events");
+            localStorage.removeItem("eternal_categories");
+        }
     }
     
     if (!localStorage.getItem("eternal_events")) {
