@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eternal Elegance | Atelier Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Passcode Authentication Screen -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-icon"><i class="fa-solid fa-key"></i></div>
+            <h2>Atelier Login</h2>
+            <p>Access is restricted to design directors of Eternal Elegance.</p>
+            <form id="auth-form">
+                <div class="form-group">
+                    <input type="password" id="passcode-input" class="auth-input" placeholder="Enter Access Code" required>
+                </div>
+                <button type="submit" class="btn-admin">Authenticate</button>
+                <p id="auth-error" class="auth-error">Incorrect Access Code. Please try again.</p>
+            </form>
+            <div style="margin-top: 25px;">
+                <a href="index.html" style="font-size: 0.85rem; color: #888; text-decoration: underline;"><i class="fa-solid fa-arrow-left"></i> Return to Showcase</a>
+            </div>
+            <p style="margin-top: 40px; font-size: 0.75rem; color: #555;">Hint: Default passcode is <code>eternal123</code></p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Application -->
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h2>EE Atelier</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="tab-overview"><i class="fa-solid fa-chart-line"></i> Overview</a>
+                <a href="#" class="nav-item" data-tab="tab-add"><i class="fa-solid fa-plus"></i> Add Event Work</a>
+                <a href="#" class="nav-item" data-tab="tab-manage"><i class="fa-solid fa-list"></i> Manage Works</a>
+                <a href="#" class="nav-item" data-tab="tab-categories"><i class="fa-solid fa-tags"></i> Edit Categories</a>
+                <a href="index.html" class="nav-item" style="margin-top: auto; border-top: 1px solid #2C2A29;"><i class="fa-solid fa-globe"></i> Public Website</a>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace Contents -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="content-header">
+                <div class="header-title">
+                    <h1 id="tab-title-display">Overview Dashboard</h1>
+                    <p id="tab-subtitle-display">Welcome back, Design Director</p>
+                </div>
+                <div class="header-user">
+                    <span>Atelier Administrator</span>
+                    <button id="btn-logout" class="logout-btn" title="Lock Panel"><i class="fa-solid fa-lock"></i></button>
+                </div>
+            </header>
+
+            <!-- TAB 1: OVERVIEW -->
+            <section id="tab-overview" class="tab-panel active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span class="stat-label">Total Event Works</span>
+                            <span class="stat-value" id="stat-total-events">0</span>
+                        </div>
+                        <div class="stat-icon purple"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span class="stat-label">Event Categories</span>
+                            <span class="stat-value" id="stat-total-categories">0</span>
+                        </div>
+                        <div class="stat-icon gold"><i class="fa-solid fa-tags"></i></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <span class="stat-label">Showcase Images</span>
+                            <span class="stat-value" id="stat-total-images">0</span>
+                        </div>
+                        <div class="stat-icon blue"><i class="fa-solid fa-image"></i></div>
+                    </div>
+                </div>
+
+                <div class="panel-card" style="margin-top: 40px;">
+                    <div class="panel-card-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+                    <div class="quick-actions-list">
+                        <button class="action-btn" onclick="switchTab('tab-add')">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <span>Create New Event Project</span>
+                        </button>
+                        <button class="action-btn" onclick="switchTab('tab-manage')">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <span>Edit Portfolio Catalog</span>
+                        </button>
+                        <button class="action-btn reset-btn" id="btn-reset-db">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span>Restore Default Seeding</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: ADD / EDIT EVENT WORK -->
+            <section id="tab-add" class="tab-panel">
+                <div class="panel-card">
+                    <div class="panel-card-header">
+                        <h2 id="form-heading">Create Event Project</h2>
+                        <button id="btn-cancel-edit" class="btn-text-danger" style="display: none;">Cancel Editing</button>
+                    </div>
+                    
+                    <form id="event-form">
+                        <input type="hidden" id="event-edit-id">
+                        
+                        <div class="form-row">
+                            <div class="form-control-group">
+                                <label for="event-title">Project Title *</label>
+                                <input type="text" id="event-title" class="admin-form-input" placeholder="e.g. Royal Palace Ceremony" required>
+                            </div>
+                            
+                            <div class="form-control-group">
+                                <label for="event-category">Event Category *</label>
+                                <select id="event-category" class="admin-form-input" required>
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-control-group">
+                                <label for="event-date">Event Date</label>
+                                <input type="date" id="event-date" class="admin-form-input">
+                            </div>
+                            
+                            <div class="form-control-group">
+                                <label for="event-location">Venue / Location *</label>
+                                <input type="text" id="event-location" class="admin-form-input" placeholder="e.g. Udaipur, India" required>
+                            </div>
+                        </div>
+
+                        <div class="form-control-group">
+                            <label for="event-description">Design Narrative / Description *</label>
+                            <textarea id="event-description" class="admin-form-input" rows="5" placeholder="Detail the layout concept, flowers used, color palette, lighting details..." required></textarea>
+                        </div>
+
+                        <!-- Image Section -->
+                        <div class="image-uploader-section">
+                            <h3>Showcase Imagery</h3>
+                            <p class="section-desc-small">Add images via local file upload (saved as Base64) or copy-paste external URLs.</p>
+                            
+                            <div class="image-source-inputs">
+                                <div class="upload-box-wrapper">
+                                    <label class="upload-file-label">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                        <span>Upload Local Image(s)</span>
+                                        <input type="file" id="image-file-upload" accept="image/*" multiple style="display: none;">
+                                    </label>
+                                </div>
+                                <div class="url-input-box">
+                                    <label for="image-url-input">Or paste Image URL:</label>
+                                    <div class="url-input-row">
+                                        <input type="url" id="image-url-input" class="admin-form-input" placeholder="https://example.com/wedding.jpg">
+                                        <button type="button" id="btn-add-url-img" class="btn-admin-secondary">Add URL</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Preview of Uploaded/Selected Images -->
+                            <div class="images-preview-container" id="images-preview-grid">
+                                <!-- Previews load here dynamically -->
+                                <div class="no-images-text">No images selected yet.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" id="btn-save-event" class="btn-admin">Save Project</button>
+                            <button type="reset" id="btn-reset-form" class="btn-admin-secondary">Reset Fields</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB 3: MANAGE WORKS -->
+            <section id="tab-manage" class="tab-panel">
+                <div class="panel-card">
+                    <div class="table-toolbar">
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="manage-search-input" placeholder="Search events...">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="manage-events-tbody">
+                                <!-- Loaded dynamically from data.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: EDIT CATEGORIES -->
+            <section id="tab-categories" class="tab-panel">
+                <div class="categories-layout">
+                    <!-- Category list -->
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <h2>Current Categories</h2>
+                        </div>
+                        <ul class="categories-list" id="admin-categories-list">
+                            <!-- Loaded dynamically -->
+                        </ul>
+                    </div>
+
+                    <!-- Add category form -->
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <h2>Add Category</h2>
+                        </div>
+                        <form id="category-add-form">
+                            <div class="form-control-group">
+                                <label for="new-category-name">Category Name *</label>
+                                <input type="text" id="new-category-name" class="admin-form-input" placeholder="e.g. Outdoor Receptions" required>
+                            </div>
+                            <button type="submit" class="btn-admin" style="margin-top: 20px; width: 100%;">Create Category</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
