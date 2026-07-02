@@ -241,18 +241,6 @@ a {
     display: block;
 }
 
-/* Nav Logo SVG Dynamic Fill Controller */
-.nav-logo svg path[fill="var(--text-primary)"],
-.nav-logo svg text[fill="var(--text-primary)"] {
-    fill: #FFFFFF; /* High-contrast white when overlaying dark hero banner */
-    transition: fill var(--transition-medium);
-}
-
-.navbar.scrolled .nav-logo svg path[fill="var(--text-primary)"],
-.navbar.scrolled .nav-logo svg text[fill="var(--text-primary)"] {
-    fill: var(--text-primary); /* Returns to brand teal/burgundy when scrolled */
-}
-
 .nav-links {
     display: flex;
     gap: 40px;
