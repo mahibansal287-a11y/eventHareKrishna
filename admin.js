@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         authForm.addEventListener("submit", (e) => {
             e.preventDefault();
             const val = passcodeInput.value.trim();
-            if (val === "eternal123") {
+            if (val === "krishna123") {
                 sessionStorage.setItem("ee_authenticated", "true");
                 authError.style.display = "none";
                 passcodeInput.value = "";
@@ -61,7 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "tab-overview": { title: "Overview Dashboard", subtitle: "Welcome back, Design Director" },
         "tab-add": { title: "Create Event Project", subtitle: "Publish a new bespoke design to the public showcase" },
         "tab-manage": { title: "Manage Works Catalog", subtitle: "Update details or remove past design projects" },
-        "tab-categories": { title: "Event Categories", subtitle: "Configure portfolio filter categories" }
+        "tab-categories": { title: "Event Categories", subtitle: "Configure portfolio filter categories" },
+        "tab-global-images": { title: "Edit Theme Images", subtitle: "Manage your background slides and About Us circular photos" }
     };
 
     window.switchTab = function(tabId) {
@@ -93,6 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
             updateStats();
         } else if (tabId === "tab-categories") {
             renderCategoriesTab();
+        } else if (tabId === "tab-global-images") {
+            renderGlobalImagesTab();
         }
     };
 
@@ -468,6 +471,158 @@ document.addEventListener("DOMContentLoaded", () => {
                 initializeDashboard();
                 switchTab("tab-overview");
             }
+        });
+    }
+
+    // ========================================================
+    // TAB 5: GLOBAL IMAGES CONTROLLER
+    // ========================================================
+    const heroSlidesPreview = document.getElementById("hero-slides-preview");
+    const heroSlideFileUpload = document.getElementById("hero-slide-file-upload");
+    const heroSlideUrlInput = document.getElementById("hero-slide-url-input");
+    const btnAddHeroUrl = document.getElementById("btn-add-hero-url");
+    const btnSaveAboutImages = document.getElementById("btn-save-about-images");
+
+    function renderGlobalImagesTab() {
+        if (!window.EventDB) return;
+
+        // 1. Render Hero Slides list
+        const heroSlides = window.EventDB.getHeroSlides();
+        renderHeroSlidesList(heroSlides);
+
+        // 2. Render About Images inputs
+        const aboutImages = window.EventDB.getAboutImages();
+        for (let i = 0; i < 3; i++) {
+            const imgEl = document.getElementById(`about-slot-${i}-img`);
+            const urlInput = document.getElementById(`about-slot-${i}-url`);
+            const fileInput = document.getElementById(`about-slot-${i}-file`);
+
+            if (imgEl) imgEl.src = aboutImages[i] || "";
+            if (urlInput) {
+                // Only show if it's an external URL (doesn't start with data:image)
+                if (aboutImages[i] && !aboutImages[i].startsWith("data:")) {
+                    urlInput.value = aboutImages[i];
+                } else {
+                    urlInput.value = "";
+                }
+            }
+            if (fileInput) fileInput.value = ""; // Clear file selector
+        }
+    }
+
+    function renderHeroSlidesList(slides) {
+        if (!heroSlidesPreview) return;
+        heroSlidesPreview.innerHTML = "";
+
+        if (slides.length === 0) {
+            heroSlidesPreview.innerHTML = `<div class="no-images-text">No hero slides active. Please add some slides!</div>`;
+            return;
+        }
+
+        slides.forEach((slideUrl, index) => {
+            const thumb = document.createElement("div");
+            thumb.className = "preview-thumb";
+            thumb.innerHTML = `
+                <img src="${slideUrl}" alt="Hero Slide ${index + 1}">
+                <button type="button" class="preview-thumb-delete" data-index="${index}"><i class="fa-solid fa-trash-can"></i></button>
+            `;
+            
+            thumb.querySelector(".preview-thumb-delete").addEventListener("click", () => {
+                if (confirm("Are you sure you want to remove this hero slide?")) {
+                    const activeSlides = window.EventDB.getHeroSlides();
+                    activeSlides.splice(index, 1);
+                    window.EventDB.saveHeroSlides(activeSlides);
+                    renderGlobalImagesTab();
+                }
+            });
+            
+            heroSlidesPreview.appendChild(thumb);
+        });
+    }
+
+    // Handle Hero Slides Local File Upload
+    if (heroSlideFileUpload) {
+        heroSlideFileUpload.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64Url = event.target.result;
+                const activeSlides = window.EventDB.getHeroSlides();
+                activeSlides.push(base64Url);
+                window.EventDB.saveHeroSlides(activeSlides);
+                
+                heroSlideFileUpload.value = ""; // clear selector
+                renderGlobalImagesTab();
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Handle Hero Slides URL Paste
+    if (btnAddHeroUrl) {
+        btnAddHeroUrl.addEventListener("click", () => {
+            const url = heroSlideUrlInput.value.trim();
+            if (!url) return;
+
+            if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:image")) {
+                const activeSlides = window.EventDB.getHeroSlides();
+                activeSlides.push(url);
+                window.EventDB.saveHeroSlides(activeSlides);
+                
+                heroSlideUrlInput.value = "";
+                renderGlobalImagesTab();
+            } else {
+                alert("Please enter a valid image URL starting with http:// or https://");
+            }
+        });
+    }
+
+    // Save About Images (symmetrical circles)
+    if (btnSaveAboutImages) {
+        btnSaveAboutImages.addEventListener("click", async () => {
+            btnSaveAboutImages.innerText = "Saving Showcase...";
+            btnSaveAboutImages.disabled = true;
+
+            const finalImages = [];
+            const currentAboutImages = window.EventDB.getAboutImages();
+
+            for (let i = 0; i < 3; i++) {
+                const fileInput = document.getElementById(`about-slot-${i}-file`);
+                const urlInput = document.getElementById(`about-slot-${i}-url`);
+
+                // Check file upload first
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    const base64 = await readAsDataURLAsync(fileInput.files[0]);
+                    finalImages.push(base64);
+                } 
+                // Then check URL paste
+                else if (urlInput && urlInput.value.trim()) {
+                    finalImages.push(urlInput.value.trim());
+                } 
+                // Fallback to previous image
+                else {
+                    finalImages.push(currentAboutImages[i] || "");
+                }
+            }
+
+            window.EventDB.saveAboutImages(finalImages);
+            btnSaveAboutImages.innerText = "Save Circular Showcase";
+            btnSaveAboutImages.disabled = false;
+            
+            alert("About Us circular image showcase updated successfully!");
+            renderGlobalImagesTab();
+        });
+    }
+
+    // Utility file reader async promise wrapper
+    function readAsDataURLAsync(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
         });
     }
 

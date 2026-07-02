@@ -9,6 +9,31 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
 
+    // Dynamic Hero Slides and About Images Loading
+    const heroSlider = document.querySelector(".hero-slider");
+    if (heroSlider && window.EventDB) {
+        const slidesList = window.EventDB.getHeroSlides();
+        heroSlider.innerHTML = "";
+        slidesList.forEach((slideUrl, i) => {
+            const slide = document.createElement("div");
+            slide.className = `hero-slide ${i === 0 ? 'active' : ''}`;
+            slide.style.backgroundImage = `linear-gradient(to bottom, rgba(17,17,17,0.45), rgba(17,17,17,0.75)), url('${slideUrl}')`;
+            heroSlider.appendChild(slide);
+        });
+    }
+
+    const aboutLeftImg = document.querySelector(".story-img-left");
+    const aboutMainImg = document.querySelector(".story-img-main");
+    const aboutRightImg = document.querySelector(".story-img-right");
+    if (window.EventDB) {
+        const aboutImages = window.EventDB.getAboutImages();
+        if (aboutImages && aboutImages.length >= 3) {
+            if (aboutLeftImg) aboutLeftImg.src = aboutImages[0];
+            if (aboutMainImg) aboutMainImg.src = aboutImages[1];
+            if (aboutRightImg) aboutRightImg.src = aboutImages[2];
+        }
+    }
+
     // Hero Slideshow Controller
     const slides = document.querySelectorAll(".hero-slide");
     let currentSlideIndex = 0;

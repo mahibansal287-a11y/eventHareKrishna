@@ -7,6 +7,18 @@ const DEFAULT_CATEGORIES = [
     "Exhibitions & Fabrications"
 ];
 
+const DEFAULT_HERO_SLIDES = [
+    "images/hero_wedding.jpg",
+    "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200",
+    "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=1200"
+];
+
+const DEFAULT_ABOUT_IMAGES = [
+    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200",
+    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200"
+];
+
 const DEFAULT_EVENTS = [
     {
         id: "evt-1",
@@ -79,22 +91,18 @@ const DEFAULT_EVENTS = [
 
 // Initialize Storage
 function initDatabase() {
-    // If it's the old eternal_events database or older schema, reset it to load all new images
-    if (localStorage.getItem("eternal_events")) {
-        const events = JSON.parse(localStorage.getItem("eternal_events"));
-        // Reset if we don't have multiple images loaded in corporate events
-        if (events.length > 0 && (!events[0].images || events[0].images.length < 3)) {
-            localStorage.removeItem("eternal_events");
-            localStorage.removeItem("eternal_categories");
-        }
-    }
-    
     if (!localStorage.getItem("eternal_events")) {
         localStorage.setItem("eternal_events", JSON.stringify(DEFAULT_EVENTS));
         localStorage.setItem("hk_creations_db_seeded", "true");
     }
     if (!localStorage.getItem("eternal_categories")) {
         localStorage.setItem("eternal_categories", JSON.stringify(DEFAULT_CATEGORIES));
+    }
+    if (!localStorage.getItem("eternal_hero_slides")) {
+        localStorage.setItem("eternal_hero_slides", JSON.stringify(DEFAULT_HERO_SLIDES));
+    }
+    if (!localStorage.getItem("eternal_about_images")) {
+        localStorage.setItem("eternal_about_images", JSON.stringify(DEFAULT_ABOUT_IMAGES));
     }
 }
 
@@ -136,9 +144,25 @@ const EventDB = {
         events = events.filter(e => e.id !== id);
         this.saveEvents(events);
     },
+    getHeroSlides: function() {
+        initDatabase();
+        return JSON.parse(localStorage.getItem("eternal_hero_slides"));
+    },
+    saveHeroSlides: function(slides) {
+        localStorage.setItem("eternal_hero_slides", JSON.stringify(slides));
+    },
+    getAboutImages: function() {
+        initDatabase();
+        return JSON.parse(localStorage.getItem("eternal_about_images"));
+    },
+    saveAboutImages: function(images) {
+        localStorage.setItem("eternal_about_images", JSON.stringify(images));
+    },
     resetToDefault: function() {
         localStorage.setItem("eternal_events", JSON.stringify(DEFAULT_EVENTS));
         localStorage.setItem("eternal_categories", JSON.stringify(DEFAULT_CATEGORIES));
+        localStorage.setItem("eternal_hero_slides", JSON.stringify(DEFAULT_HERO_SLIDES));
+        localStorage.setItem("eternal_about_images", JSON.stringify(DEFAULT_ABOUT_IMAGES));
         localStorage.setItem("hk_creations_db_seeded", "true");
     }
 };
