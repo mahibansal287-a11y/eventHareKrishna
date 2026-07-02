@@ -1,78 +1,83 @@
-// data.js - Data access layer and default seeding
+// data.js - Data access layer and default seeding for Hare Krishna Creations
 
 const DEFAULT_CATEGORIES = [
-    "Royal Weddings",
-    "Elegant Receptions",
-    "Sangeet & Mehendi",
-    "Floral Installations",
-    "Intimate Gatherings"
+    "Corporate Events",
+    "Weddings & Socials",
+    "Branding & LED Signage",
+    "Exhibitions & Fabrications"
 ];
 
 const DEFAULT_EVENTS = [
     {
         id: "evt-1",
-        title: "The Regal Lake Palace Affair",
-        category: "Royal Weddings",
-        description: "A breathtaking celebration styled with royal Rajasthani grandeur. The design featured 10,000 fresh white roses, gold-gilded arches, custom-woven ivory silk drapes, and hundreds of brass oil lamps reflecting off the lake at twilight. The centerpiece was a floating mandap adorned with cascading orchids.",
+        title: "Grand Corporate Tech Summit",
+        category: "Corporate Events",
+        description: "A high-profile annual corporate summit hosting 1,500+ delegates. The design featured a seamless 60ft LED backdrop, custom stage fabrications, interactive digital registrations, and high-performance sound & lighting systems. The branding elements were aligned perfectly with the corporate identity.",
         date: "2025-11-12",
-        location: "Taj Lake Palace, Udaipur",
+        location: "Grand Hyatt, Mumbai",
+        images: [
+            "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200",
+            "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1200"
+        ]
+    },
+    {
+        id: "evt-2",
+        title: "The Royal Rajasthani Mandap",
+        category: "Weddings & Socials",
+        description: "A breathtaking traditional wedding ceremony styled with royal grandeur. The venue was decorated with over 8,000 imported roses and carnations, custom gold-carved pillars, cascading crystal wisterias, and warm brass candle lamps reflecting off water structures at sunset.",
+        date: "2025-12-05",
+        location: "Taj Palace, New Delhi",
         images: [
             "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200",
             "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=1200"
         ]
     },
     {
-        id: "evt-2",
-        title: "Crystal & Emerald Reception",
-        category: "Elegant Receptions",
-        description: "A glamorous evening under a canopy of thousands of crystal shards, accented by lush emerald velvet details and gold chrome finishes. Tables featured bespoke tall candelabras, custom calligraphed menus on handmade paper, and soft green atmospheric uplighting that transformed the ballroom into an enchanted forest.",
-        date: "2025-12-05",
-        location: "The Leela Palace, New Delhi",
-        images: [
-            "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200",
-            "https://images.unsplash.com/photo-1543807535-eceef0bc6599?auto=format&fit=crop&q=80&w=1200"
-        ]
-    },
-    {
         id: "evt-3",
-        title: "Luminous Indigo Sangeet",
-        category: "Sangeet & Mehendi",
-        description: "A high-octane celebration of music and color, featuring a futuristic pixel-mapped lighting grid blended with classic Moroccan lanterns. Hanging brass floral screens, customized low-seating lounges in sapphire blue and rich mustard, and a state-of-the-art interactive dance floor.",
+        title: "Corporate Atelier Glow Signage",
+        category: "Branding & LED Signage",
+        description: "An end-to-end premium branding installation. Designed and fabricated a series of weather-resistant, dual-sided outdoor LED glow sign boards, custom-printed high-gloss vinyl window branding, and custom-lit acrylic structural signage for corporate offices.",
         date: "2025-10-22",
-        location: "Umaid Bhawan Palace, Jodhpur",
+        location: "DLF CyberCity, Gurugram",
         images: [
-            "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200"
         ]
     },
     {
         id: "evt-4",
-        title: "Ethereal Glasshouse Florals",
-        category: "Floral Installations",
-        description: "An indoor garden installation designed to look like an overgrown, luxurious English greenhouse. Custom iron pergolas loaded with climbing jasmine, white wisteria, and pale pink hydrangeas, creating a romantic scent and a magical, fairytale aesthetic.",
+        title: "National Automotive Trade Pavilion",
+        category: "Exhibitions & Fabrications",
+        description: "A custom-fabricated, double-decker exhibition stall spanning 150 sq. meters. Designed with interactive screen walls, bespoke meeting pods, clean product display platforms, high-impact backlit vinyl branding, and a dedicated lounge zone.",
         date: "2026-02-18",
-        location: "The Oberoi Udaivilas, Udaipur",
+        location: "Pragati Maidan, New Delhi",
         images: [
-            "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=1200",
-            "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1565034946487-077786996e27?auto=format&fit=crop&q=80&w=1200"
         ]
     },
     {
         id: "evt-5",
-        title: "Golden Hour Tuscan Lunch",
-        category: "Intimate Gatherings",
-        description: "An intimate anniversary lunch setup for 30 distinguished guests. Long wooden rustic tables paired with cross-back chairs, soft linen runners, clusters of fresh citrus, olive branches, and trailing eucalyptus, bathed in the natural golden light of a late winter afternoon.",
+        title: "Luminous Indigo Sangeet",
+        category: "Weddings & Socials",
+        description: "A grand social sangeet night blending contemporary pixel-mapped light grids with traditional Moroccan screens. Features hanging floral installations, customized blue-gold low-seating lounges, and a state-of-the-art stage setup with intelligent moving lights.",
         date: "2026-01-10",
-        location: "Private Estate, Alibaug",
+        location: "Umaid Bhawan, Jodhpur",
         images: [
-            "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=1200"
+            "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=1200"
         ]
     }
 ];
 
 // Initialize Storage
 function initDatabase() {
+    // If it's the old eternal_events database, reset it to match Hare Krishna Creations
+    if (localStorage.getItem("eternal_events") && !localStorage.getItem("hk_creations_db_seeded")) {
+        localStorage.removeItem("eternal_events");
+        localStorage.removeItem("eternal_categories");
+    }
+    
     if (!localStorage.getItem("eternal_events")) {
         localStorage.setItem("eternal_events", JSON.stringify(DEFAULT_EVENTS));
+        localStorage.setItem("hk_creations_db_seeded", "true");
     }
     if (!localStorage.getItem("eternal_categories")) {
         localStorage.setItem("eternal_categories", JSON.stringify(DEFAULT_CATEGORIES));
@@ -120,6 +125,7 @@ const EventDB = {
     resetToDefault: function() {
         localStorage.setItem("eternal_events", JSON.stringify(DEFAULT_EVENTS));
         localStorage.setItem("eternal_categories", JSON.stringify(DEFAULT_CATEGORIES));
+        localStorage.setItem("hk_creations_db_seeded", "true");
     }
 };
 
