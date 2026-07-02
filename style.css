@@ -8,34 +8,34 @@
     --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     
     /* Default Theme (D1) - Official Brand Theme */
-    --bg-primary: #dce5e8;      /* Elegant Darker Powder-Blue Slate backdrop */
-    --bg-secondary: #FFFFFF;
-    --bg-dark: #002837;         /* Darkest Brand Teal */
-    --bg-dark-accent: #00364a;  
-    --text-primary: #004b67;    /* Exact Brand Teal Blue */
-    --text-secondary: #4d7a8d;  /* Slate Teal Muted Text */
-    --text-light: #f4f8fa;
+    --bg-primary: #002837;      /* Rich Dark Teal-Blue backdrop (logo color) */
+    --bg-secondary: #00364a;    /* Lighter Teal-Blue for cards */
+    --bg-dark: #001923;         /* Deepest Teal-Blue for footer */
+    --bg-dark-accent: #00202d;  
+    --text-primary: #FFFFFF;    /* Crisp White headings for maximum visibility */
+    --text-secondary: #a3c4d3;  /* Muted Slate-Blue for readability */
+    --text-light: #FFFFFF;
     --accent-gold: #fba900;     /* Exact Brand Mustard Gold */
     --accent-gold-hover: #ffa900;
-    --accent-gold-light: #fff9e6; /* Warm Soft Yellow Highlight Tint */
-    --border-color: #e3c181;    /* Soft Warm Gold Border */
+    --accent-gold-light: rgba(251, 169, 0, 0.12); /* Soft Yellow Glow highlights */
+    --border-color: rgba(251, 169, 0, 0.25);      /* Soft Warm Gold Border */
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
 
 /* Theme D1 - Official Peacock Teal & Gold (Primary Brand Design) */
 body[data-theme="d1"] {
-    --bg-primary: #dce5e8;
-    --bg-secondary: #FFFFFF;
-    --bg-dark: #002837;
-    --bg-dark-accent: #00364a;
-    --text-primary: #004b67;
-    --text-secondary: #4d7a8d;
-    --text-light: #f4f8fa;
+    --bg-primary: #002837;
+    --bg-secondary: #00364a;
+    --bg-dark: #001923;
+    --bg-dark-accent: #00202d;
+    --text-primary: #FFFFFF;
+    --text-secondary: #a3c4d3;
+    --text-light: #FFFFFF;
     --accent-gold: #fba900;
     --accent-gold-hover: #ffa900;
-    --accent-gold-light: #fff9e6;
-    --border-color: #e3c181;
+    --accent-gold-light: rgba(251, 169, 0, 0.12);
+    --border-color: rgba(251, 169, 0, 0.25);
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
@@ -108,6 +108,8 @@ html {
 
 body {
     overflow-x: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 /* Custom Scrollbar */
@@ -232,7 +234,7 @@ a {
 
 .navbar.scrolled {
     padding: 15px 50px;
-    background: rgba(244, 248, 250, 0.95);
+    background: var(--bg-secondary);
     backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-color);
 }
