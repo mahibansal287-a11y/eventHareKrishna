@@ -8,7 +8,7 @@
     --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     
     /* Default Theme (D1) - Official Brand Theme */
-    --bg-primary: #f4f8fa;      /* Ice Teal Tint Background */
+    --bg-primary: #dce5e8;      /* Elegant Darker Powder-Blue Slate backdrop */
     --bg-secondary: #FFFFFF;
     --bg-dark: #002837;         /* Darkest Brand Teal */
     --bg-dark-accent: #00364a;  
@@ -17,15 +17,15 @@
     --text-light: #f4f8fa;
     --accent-gold: #fba900;     /* Exact Brand Mustard Gold */
     --accent-gold-hover: #ffa900;
-    --accent-gold-light: #e6f1f5; /* Light Highlight Teal Tint */
-    --border-color: #ccdbe1;
+    --accent-gold-light: #fff9e6; /* Warm Soft Yellow Highlight Tint */
+    --border-color: #e3c181;    /* Soft Warm Gold Border */
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
 
 /* Theme D1 - Official Peacock Teal & Gold (Primary Brand Design) */
 body[data-theme="d1"] {
-    --bg-primary: #f4f8fa;
+    --bg-primary: #dce5e8;
     --bg-secondary: #FFFFFF;
     --bg-dark: #002837;
     --bg-dark-accent: #00364a;
@@ -34,8 +34,8 @@ body[data-theme="d1"] {
     --text-light: #f4f8fa;
     --accent-gold: #fba900;
     --accent-gold-hover: #ffa900;
-    --accent-gold-light: #e6f1f5;
-    --border-color: #ccdbe1;
+    --accent-gold-light: #fff9e6;
+    --border-color: #e3c181;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
@@ -510,6 +510,15 @@ section {
     color: var(--text-primary);
 }
 
+.section-header .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-gold);
+    margin: 15px auto 0 auto;
+}
+
 .section-header p {
     font-size: 1.05rem;
 }
@@ -657,7 +666,7 @@ section {
 
 .portfolio-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(251, 169, 0, 0.15); /* Warm yellow-gold glow shadow */
     border-color: var(--accent-gold);
 }
 
@@ -749,7 +758,7 @@ body[data-theme="d1"] .portfolio-loc {
 .service-card:hover {
     border-color: var(--accent-gold);
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(197, 168, 128, 0.05);
+    box-shadow: 0 15px 35px rgba(251, 169, 0, 0.15); /* Warm yellow-gold glow shadow */
 }
 
 .service-icon {
