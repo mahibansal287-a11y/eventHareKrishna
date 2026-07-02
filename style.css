@@ -57,19 +57,19 @@ body[data-theme="d2"] {
     --font-sans: 'Inter', sans-serif;
 }
 
-/* Theme D3 - Emerald Luxury & Gold */
+/* Theme D3 - Royal Velvet Burgundy & Gold */
 body[data-theme="d3"] {
-    --bg-primary: #F2F5F3;
+    --bg-primary: #FCF9F6;      /* Pearl Rose / Silk Cream */
     --bg-secondary: #FFFFFF;
-    --bg-dark: #0F2A1D; /* Deep Emerald */
-    --bg-dark-accent: #183C2B;
-    --text-primary: #0F2A1D;
-    --text-secondary: #4A6356;
-    --text-light: #F2F5F3;
-    --accent-gold: #B89047; /* Antique Gold */
+    --bg-dark: #4A121A;         /* Deep Crimson Burgundy */
+    --bg-dark-accent: #611D25;  /* Rich Plum Accent */
+    --text-primary: #330F13;    /* Deep Wine Charcoal */
+    --text-secondary: #70575B;  /* Muted Burgundy Grey */
+    --text-light: #FCF9F6;
+    --accent-gold: #C09E5A;     /* Warm Lustrous Gold */
     --accent-gold-hover: #D4AF37;
-    --accent-gold-light: #F4EFE3;
-    --border-color: #D2DDD7;
+    --accent-gold-light: #F7F1E6;
+    --border-color: #EADCD1;
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Montserrat', sans-serif;
 }
@@ -1227,7 +1227,7 @@ textarea.form-input {
 
 .theme-btn-d1 { background: #C5A880; color: #FAF9F6; }
 .theme-btn-d2 { background: #0F4C81; color: #F4F6F9; }
-.theme-btn-d3 { background: #0A4224; color: #FAF9F6; }
+.theme-btn-d3 { background: #58111A; color: #FAF9F6; }
 .theme-btn-d4 { background: #0F0E0E; color: #E8C5C8; border: 1px solid #2D2B2B; }
 
 @media (max-width: 768px) {
