@@ -8,34 +8,34 @@
     --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     
     /* Default Theme (D1) - Official Brand Theme */
-    --bg-primary: #F4F8FA;      /* Ice Teal Tint */
+    --bg-primary: #f4f8fa;      /* Ice Teal Tint Background */
     --bg-secondary: #FFFFFF;
-    --bg-dark: #0A2E38;         /* Deep Peacock Teal */
-    --bg-dark-accent: #0D3A47;  
-    --text-primary: #0A2E38;    /* Deep Peacock Teal Text */
-    --text-secondary: #527A84;  /* Muted Slate Teal Text */
-    --text-light: #F4F8FA;
-    --accent-gold: #EBA115;     /* Official Mustard Gold */
-    --accent-gold-hover: #F5B01A;
-    --accent-gold-light: #E8F2F5;
-    --border-color: #D1DFE3;
+    --bg-dark: #002837;         /* Darkest Brand Teal */
+    --bg-dark-accent: #00364a;  
+    --text-primary: #004b67;    /* Exact Brand Teal Blue */
+    --text-secondary: #4d7a8d;  /* Slate Teal Muted Text */
+    --text-light: #f4f8fa;
+    --accent-gold: #fba900;     /* Exact Brand Mustard Gold */
+    --accent-gold-hover: #ffa900;
+    --accent-gold-light: #e6f1f5; /* Light Highlight Teal Tint */
+    --border-color: #ccdbe1;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
 
 /* Theme D1 - Official Peacock Teal & Gold (Primary Brand Design) */
 body[data-theme="d1"] {
-    --bg-primary: #F4F8FA;
+    --bg-primary: #f4f8fa;
     --bg-secondary: #FFFFFF;
-    --bg-dark: #0A2E38;
-    --bg-dark-accent: #0D3A47;
-    --text-primary: #0A2E38;
-    --text-secondary: #527A84;
-    --text-light: #F4F8FA;
-    --accent-gold: #EBA115;
-    --accent-gold-hover: #F5B01A;
-    --accent-gold-light: #E8F2F5;
-    --border-color: #D1DFE3;
+    --bg-dark: #002837;
+    --bg-dark-accent: #00364a;
+    --text-primary: #004b67;
+    --text-secondary: #4d7a8d;
+    --text-light: #f4f8fa;
+    --accent-gold: #fba900;
+    --accent-gold-hover: #ffa900;
+    --accent-gold-light: #e6f1f5;
+    --border-color: #ccdbe1;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
 }
