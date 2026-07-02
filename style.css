@@ -1,8 +1,13 @@
 /* style.css - Premium Wedding & Event styling system */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
 :root {
+    --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Default Theme (D1) */
     --bg-primary: #FAF9F6;      /* Warm Alabaster Ivory */
     --bg-secondary: #FFFFFF;
     --bg-dark: #111111;
@@ -16,10 +21,74 @@
     --border-color: #E6E1DA;
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
-    
-    --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theme D1 - Classic Champagne & Ivory (Original Luxury) */
+body[data-theme="d1"] {
+    --bg-primary: #FAF9F6;
+    --bg-secondary: #FFFFFF;
+    --bg-dark: #111111;
+    --bg-dark-accent: #1C1A17;
+    --text-primary: #1C1A17;
+    --text-secondary: #65605C;
+    --text-light: #FAF9F6;
+    --accent-gold: #C5A880;
+    --accent-gold-hover: #D4AF37;
+    --accent-gold-light: #F6F2EC;
+    --border-color: #E6E1DA;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+/* Theme D2 - Corporate Royal Blue & Platinum */
+body[data-theme="d2"] {
+    --bg-primary: #F4F6F9;
+    --bg-secondary: #FFFFFF;
+    --bg-dark: #0A192F;
+    --bg-dark-accent: #172A45;
+    --text-primary: #0A192F;
+    --text-secondary: #4A5568;
+    --text-light: #F4F6F9;
+    --accent-gold: #0F4C81; /* Royal Blue */
+    --accent-gold-hover: #3182CE; /* Bright Blue */
+    --accent-gold-light: #EBF8FF;
+    --border-color: #CBD5E0;
+    --font-serif: 'Montserrat', sans-serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+/* Theme D3 - Emerald Luxury & Gold */
+body[data-theme="d3"] {
+    --bg-primary: #F2F5F3;
+    --bg-secondary: #FFFFFF;
+    --bg-dark: #0F2A1D; /* Deep Emerald */
+    --bg-dark-accent: #183C2B;
+    --text-primary: #0F2A1D;
+    --text-secondary: #4A6356;
+    --text-light: #F2F5F3;
+    --accent-gold: #B89047; /* Antique Gold */
+    --accent-gold-hover: #D4AF37;
+    --accent-gold-light: #F4EFE3;
+    --border-color: #D2DDD7;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Montserrat', sans-serif;
+}
+
+/* Theme D4 - Modern Minimalist Dark (Obsidian & Blush) */
+body[data-theme="d4"] {
+    --bg-primary: #0F0E0E;
+    --bg-secondary: #161515;
+    --bg-dark: #FAF9F6;
+    --bg-dark-accent: #FFFFFF;
+    --text-primary: #FAF9F6;
+    --text-secondary: #A09E9B;
+    --text-light: #0F0E0E;
+    --accent-gold: #E8C5C8; /* Blush Gold */
+    --accent-gold-hover: #F2D5D8;
+    --accent-gold-light: #201C1C;
+    --border-color: #2D2B2B;
+    --font-serif: 'Cinzel', serif;
+    --font-sans: 'Inter', sans-serif;
 }
 
 /* Base resets */
@@ -1056,3 +1125,77 @@ textarea.form-input {
         text-align: center;
     }
 }
+
+/* Floating Theme Switcher Widget */
+.theme-switcher {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: var(--transition-medium);
+}
+
+.theme-switcher-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-right: 1px solid var(--border-color);
+    padding-right: 10px;
+    margin-right: 2px;
+}
+
+.theme-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.theme-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    outline: none;
+}
+
+.theme-btn:hover {
+    transform: scale(1.15);
+}
+
+.theme-btn.active {
+    border-color: var(--text-primary);
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+
+.theme-btn-d1 { background: #C5A880; color: #FAF9F6; }
+.theme-btn-d2 { background: #0F4C81; color: #F4F6F9; }
+.theme-btn-d3 { background: #0A4224; color: #FAF9F6; }
+.theme-btn-d4 { background: #0F0E0E; color: #E8C5C8; border: 1px solid #2D2B2B; }
+
+@media (max-width: 768px) {
+    .theme-switcher {
+        bottom: 20px;
+        right: 20px;
+        padding: 6px 10px;
+    }
+    .theme-switcher-label {
+        display: none; /* Hide label on mobile to save space */
+    }
+}
+

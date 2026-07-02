@@ -237,11 +237,42 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.disabled = true;
 
             setTimeout(() => {
-                alert("Thank you for reaching out. A design consultant from Eternal Elegance will contact you shortly.");
+                alert("Thank you for reaching out. A representative from Hare Krishna Creations will contact you shortly.");
                 contactForm.reset();
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             }, 1200);
+        });
+    }
+
+    // 6. Floating Design/Theme Switcher Logic
+    const themeBtns = document.querySelectorAll(".theme-btn");
+    
+    function applyTheme(themeName) {
+        document.body.setAttribute("data-theme", themeName);
+        localStorage.setItem("hk_theme", themeName);
+        
+        // Update active class on buttons
+        themeBtns.forEach(btn => {
+            if (btn.getAttribute("data-theme") === themeName) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        });
+    }
+
+    if (themeBtns.length > 0) {
+        // Load initial theme
+        const savedTheme = localStorage.getItem("hk_theme") || "d1";
+        applyTheme(savedTheme);
+
+        // Click listeners
+        themeBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const targetTheme = btn.getAttribute("data-theme");
+                applyTheme(targetTheme);
+            });
         });
     }
 
